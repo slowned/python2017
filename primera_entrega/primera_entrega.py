@@ -20,19 +20,26 @@ def modifica_linea(dialogo):
 
 def guardo_dialogo_actor(actor,dialogo):
 # Genera NombreActor.txt --> dialogo(lines)
-    arch = actor+'.txt'
-    with open(arch, 'a') as f:
-        f.write(str(dialogo))
+    d = str(dialogo.strip())
+    print(d)
+    print('---------------')
+    act = actor.replace(' ', '')
+    arch = act+'.txt'
+    f = open(arch, 'a')
+    f.write(d+'\n')
+    #with open(arch, 'a') as f:
+    #    f.write(str(d)+'\n')
     f.close()
 
 def generar_dialogo(actor):
 #lee el archivo del  actor actor+'txt' y genera una lista con las lineas
     dialogo_actor = []
-    arch = actor+'.txt'
+    act = actor.replace(' ', '')
+    arch = act+'.txt'
     f = open(arch,'r')
     for l in f:
-	print('a infinitivo' + l)
-        dialogo_actor.append(l)
+#	print('a infinitivo' + l)
+        dialogo_actor.append(str(l))
     return dialogo_actor
 
 def random_pos():

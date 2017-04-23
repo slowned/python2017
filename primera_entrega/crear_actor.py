@@ -3,6 +3,7 @@ import random
 import os
 
 pilas = pilasengine.iniciar()
+dialogo=pilas.actores.Dialogo()
 class ActorPelicula(pilasengine.actores.Actor):
 
 
@@ -25,11 +26,13 @@ class ActorPelicula(pilasengine.actores.Actor):
     def eliminar_linea(self, valor):
 	self.lineas.remove(valor)
 
+#def dialogar():
+#    dialogo.comenzar()
 #actores= {}
 #pos1=[(50,50)]
 #pos2=[(5,-47)]
 #linea1=['lineas de juan']
-#linea2=['lineas de carlo 11','lineas de carlo 22 de mierdsa']
+#linea2=['lineas de carlo 11','lineas de carlo 22 ']
 #juan = ActorPelicula(pilas,nombre='juan carlos',position=pos1,dialogo=linea1)
 #carlo = ActorPelicula(pilas,nombre='carlo',position=pos2,dialogo=linea2)
 #
@@ -40,12 +43,17 @@ class ActorPelicula(pilasengine.actores.Actor):
 #actores[carlo.get_nombre()]=carlo
 #actores[juan.get_nombre()]=juan
 #
-#dialogo=pilas.actores.Dialogo()
 #for k,v in actores.items():
 ##    print (k,v.get_lineas()[0])
 #    dialogo.decir(actores[k],v.get_lineas()[0])
 ##    v.eliminar_linea(v.get_lineas()[0])
-#print(carlo.get_lineas())
+##print(carlo.get_lineas())
 #
-#dialogo.comenzar()
+##dialogo.comenzar()
+#
+#boton=pilas.actores.Boton()
+#boton.x=60
+#boton.y=-60
+#boton.conectar_presionado(dialogar)
+##boton.conectar(dialogar(dialogo))
 #pilas.ejecutar()

@@ -1,39 +1,80 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-import pilasengine, random, os
-import json
+import os
+import random
+import pilasengine
+from crear_actor import ActorPelicula
+from pattern.es import conjugate, split, singularize, parse, INFINITIVE
+import codecs
+
+
+pilas = pilasengine.iniciar()
+def modifica_linea(dialogo):
+    p = parse(dialogo)
+    lista = p.split(' ') 
+    for i in lista:
+	palabra = i.split('/')
+        if palabra[1] == 'VB':
+	    p = conjugate(palabra[0], INFINITIVE)
 
 def guardo_dialogo_actor(actor,dialogo):
+# Genera NombreActor.txt --> dialogo(lines)
     arch = actor+'.txt'
     with open(arch, 'a') as f:
-        f.write(dialogo)
+        f.write(str(dialogo))
     f.close()
 
-guion = open('guion.txt')
-#print list(guion)
-secuencia_dialogo = []
-actores2 = {}
-
-
-for dialogo in guion:
-    d = dialogo.split(':')
-    secuencia_dialogo.append(d[0])
-    guardo_dialogo_actor(d[0],d[1])
-
-for actor in secuencia_dialogo:
+def generar_dialogo(actor):
+#lee el archivo del  actor actor+'txt' y genera una lista con las lineas
+    dialogo_actor = []
     arch = actor+'.txt'
-    f = open(arch, 'rw+')
-    print f.readline() 
-# cantidad de actoes en la escena referencia para crear actores en pilas
-actores = set(secuencia_dialogo)
+    f = open(arch,'r')
+    for l in f:
+	print('a infinitivo' + l)
+        dialogo_actor.append(l)
+    return dialogo_actor
 
-print len(actores)
-#-----------------------------------
+def random_pos():
+    posxy = (random.randrange(-100,100),random.randrange(-100,100))
+    return posxy
 
-# Pos 
-#coordenadas = []
+pos = [] 
+for i in range(0,10):
+    pos.append(random_pos())
 
-#coordenadas.remove(coordenadas[index])
-#------------------------------------
+guion = open('guion.txt','r')
+actores = {}
 
+secuencia_dialogo = []
+# Genero secuencia y linieas de cada actor
+for linea in guion:
+    d = linea.split(':')
+    actor = d[0]
+    secuencia_dialogo.append(actor)
+    l = d[1] 
+    guardo_dialogo_actor(actor,l)
+
+cant_actores = set(secuencia_dialogo)
+
+for act in cant_actores:
+    dialogo = generar_dialogo(act)
+    xy = pos[0]  
+    actor = ActorPelicula(pilas,nombre=act,position=pos,dialogo=dialogo)
+    actores[actor.get_nombre()] = actor
+#    actores[actor.get_nombre()] = actor.get_lineas()
+    pos.remove(xy)
+
+dialogo = pilas.actores.Dialogo()
+for a in secuencia_dialogo:
+    actor = actores[a]
+    print(actor.get_nombre())
+    linea = str(actor.get_lineas()[0])
+    print(linea)
+    dialogo.decir(actor,linea)
+    actor.eliminar_linea(linea)
+
+dialogo.comenzar()
+    
+
+pilas.ejecutar()

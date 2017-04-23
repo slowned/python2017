@@ -1,4 +1,5 @@
 import pilasengine
+import .crear_actor
 
 pilas = pilasengine.iniciar()
 
@@ -11,4 +12,5 @@ dialogo.decir(mono, "genial...")
 
 dialogo.comenzar()
 
+char = ActorPelicula(pilas, nombre='kian', position([(2,4)])
 pilas.ejecutar()

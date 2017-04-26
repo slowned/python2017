@@ -7,7 +7,7 @@ import pilasengine
 from crear_actor import ActorPelicula
 from pattern.es import conjugate, split, singularize, parse, INFINITIVE
 import codecs
-
+import json
 
 pilas = pilasengine.iniciar()
 def modifica_linea(dialogo):
@@ -18,29 +18,29 @@ def modifica_linea(dialogo):
         if palabra[1] == 'VB':
 	    p = conjugate(palabra[0], INFINITIVE)
 
-def guardo_dialogo_actor(actor,dialogo):
+
+def archivo_actor(actor,dialogo):
 # Genera NombreActor.txt --> dialogo(lines)
-    d = str(dialogo.strip())
-    print(d)
-    print('---------------')
-    act = actor.replace(' ', '')
-    arch = act+'.txt'
-    f = open(arch, 'a')
-    f.write(d+'\n')
-    #with open(arch, 'a') as f:
-    #    f.write(str(d)+'\n')
+    d = dialogo.strip()
+    act = actor.replace(' ','')
+    data = act+".json"
+    f = open(data, "a")
+    json.dump(d, f)
     f.close()
 
-def generar_dialogo(actor):
+def generar_guion(actor):
 #lee el archivo del  actor actor+'txt' y genera una lista con las lineas
-    dialogo_actor = []
-    act = actor.replace(' ', '')
-    arch = act+'.txt'
-    f = open(arch,'r')
-    for l in f:
-#	print('a infinitivo' + l)
-        dialogo_actor.append(str(l))
-    return dialogo_actor
+    dialogo = []
+    archivo_actor = actor+".json"
+    with open(archivo_actor, "r") as f:
+        d = str(f.readlines())
+
+    lineas = d[0].split("\"")	
+    for linea in lineas:
+        dialogo.append(linea)
+
+    return dialogo
+	
 
 def random_pos():
     posxy = (random.randrange(-100,100),random.randrange(-100,100))
@@ -50,38 +50,46 @@ pos = []
 for i in range(0,10):
     pos.append(random_pos())
 
+""" ------------ se habre el guion-------------"""
+
 guion = open('guion.txt','r')
+g = guion.readlines()
 actores = {}
-
 secuencia_dialogo = []
+
 # Genero secuencia y linieas de cada actor
-for linea in guion:
-    d = linea.split(':')
-    actor = d[0]
+for linea in g:
+    l = linea.split(':')
+    actor = l[0].strip()
     secuencia_dialogo.append(actor)
-    l = d[1] 
-    guardo_dialogo_actor(actor,l)
+    dialogo = l[1] 
+    archivo_actor(actor,dialogo)
 
-cant_actores = set(secuencia_dialogo)
+""" ------------ contrato actores --------------"""
 
-for act in cant_actores:
-    dialogo = generar_dialogo(act)
-    xy = pos[0]  
-    actor = ActorPelicula(pilas,nombre=act,position=pos,dialogo=dialogo)
-    actores[actor.get_nombre()] = actor
+papeles = set(secuencia_dialogo)
+
+print("reparto de guiones")
+for actor in papeles:
+    lineas = generar_guion(actor) # repartimos el guion
+    xy = pos[0]
+    act = ActorPelicula(pilas,nombre=actor,position=pos,dialogo=lineas)
+    actores[act.get_nombre()] = act
 #    actores[actor.get_nombre()] = actor.get_lineas()
     pos.remove(xy)
 
-dialogo = pilas.actores.Dialogo()
-for a in secuencia_dialogo:
-    actor = actores[a]
-    print(actor.get_nombre())
-    linea = str(actor.get_lineas()[0])
+#dialogo = pilas.actores.Dialogo()
+for actor in secuencia_dialogo:
+    a = actores[actor]
+    linea = a.get_linea()
+#    actor.decir(linea)
+    print('actor en escena : '+ a.get_nombre())
     print(linea)
-    dialogo.decir(actor,linea)
-    actor.eliminar_linea(linea)
+#    dialogo.decir(actor,linea)
+    a.eliminar_linea(linea)
+    print('termino linea del actor')
 
-dialogo.comenzar()
+#dialogo.comenzar()
     
 
 pilas.ejecutar()

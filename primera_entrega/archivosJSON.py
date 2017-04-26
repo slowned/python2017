@@ -1,43 +1,38 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
+
 import json
 
-def archivo_actor(actor,dialogo):
-# Genera NombreActor.txt --> dialogo(lines)
-    d = dialogo.strip()
-    act = actor.replace(' ','')
-    data = act+".json"
-    f = open(data, "a")
-    json.dump(d, f)
-    f.close()
 
-def generar_guion(actor):
-#lee el archivo del  actor actor+'txt' y genera una lista con las lineas
-    dialogo = []
-    act = actor.replace(' ','')
-    archivo_actor = act+".json"
-    with open(archivo_actor, "r") as f:
-        d = str(f.readlines())
-    for line in d:
-	dialogo.append(line)
-    return dialogo
+class GuionParser(object):
 
+    def __init__(self):
+        self.guion_parser()
 
-guion = open("guion.txt","r")
+    def archivo_actor(self, actor, dialogo):
+        act = actor.replace(' ','')
 
-g = guion.readlines()
-for l in g:
-    linea = l.split(":")
-    actor = linea[0].strip()
-    dialogo = linea[1]
-    archivo_actor(actor, dialogo)
+        filename = "{0}.json".format(act)
+        with open(filename, 'w') as outfile:
+            json.dump(dialogo, outfile)
 
+    def guion_parser(self):
+        guion = open('guion.txt','r')
+        lines = guion.readlines()
 
-generar_guion("Jorge")
+        secuencia_dialogo = []
+        # Genero secuencia y linieas de cada actor
+        actor_dialogo = {}
+        for dialogo in lines:
+            l = dialogo.split(':')
+            print(l[1])
+            secuencia_dialogo.append(l[0])
+            try:
+                line = unicode(l[1], encoding='utf-8')
+                actor_dialogo[l[0]].append(line)
+            except(KeyError):
+                actor_dialogo[l[0]] = []
+                line = unicode(l[1], encoding='utf-8')
+                actor_dialogo[l[0]].append(line)
 
-
-
-guion.close()
-
-
+        for actor, linea in actor_dialogo.iteritems():
+            self.archivo_actor(actor, linea)

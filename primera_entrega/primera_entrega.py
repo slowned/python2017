@@ -31,14 +31,12 @@ def archivo_actor(actor,dialogo):
 def generar_guion(actor):
 #lee el archivo del  actor actor+'txt' y genera una lista con las lineas
     dialogo = []
-    archivo_actor = actor+".json"
+    act = actor.replace(' ','')
+    archivo_actor = act+".json"
     with open(archivo_actor, "r") as f:
         d = str(f.readlines())
-
-    lineas = d[0].split("\"")	
-    for linea in lineas:
-        dialogo.append(linea)
-
+    for line in d:
+	dialogo.append(line)
     return dialogo
 	
 
@@ -69,7 +67,6 @@ for linea in g:
 
 papeles = set(secuencia_dialogo)
 
-print("reparto de guiones")
 for actor in papeles:
     lineas = generar_guion(actor) # repartimos el guion
     xy = pos[0]
@@ -82,12 +79,9 @@ for actor in papeles:
 for actor in secuencia_dialogo:
     a = actores[actor]
     linea = a.get_linea()
-#    actor.decir(linea)
-    print('actor en escena : '+ a.get_nombre())
-    print(linea)
+    a.decir(linea)
 #    dialogo.decir(actor,linea)
     a.eliminar_linea(linea)
-    print('termino linea del actor')
 
 #dialogo.comenzar()
     

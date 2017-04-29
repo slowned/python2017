@@ -3,7 +3,6 @@ import random
 import os
 
 pilas = pilasengine.iniciar()
-dialogo=pilas.actores.Dialogo()
 class ActorPelicula(pilasengine.actores.Actor):
 
 
@@ -20,11 +19,10 @@ class ActorPelicula(pilasengine.actores.Actor):
     def get_nombre(self):
 	return str(self.nombre)
 
-    def get_lineas(self):
-	return self.lineas
-
-    def eliminar_linea(self, valor):
-	self.lineas.remove(valor)
+    def get_linea(self):
+	l=self.lineas[0]
+	self.lineas.remove(l)
+	return l
 
 #def dialogar():
 #    dialogo.comenzar()

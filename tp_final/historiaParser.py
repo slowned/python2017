@@ -29,4 +29,3 @@ class HistoryParser(object):
             self.save_scene(scene,line)
 
 
-h = HistoryParser()

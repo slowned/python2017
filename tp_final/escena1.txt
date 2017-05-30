@@ -1,0 +1,34 @@
+[escena1, fondo1.png]
+
+(RUBEN,posicionar, -50,100)
+
+(GUILLERMO,posicionar, 50,100)
+
+RUBEN:¡Hey!
+
+GUILLERMO:Mira, no te pierdas esto.
+
+(RUBEN,posicionar, 0,100)
+
+(GUILLERMO,girar,3)
+
+GUILLERMO:¿Has visto? Reacciona bien... ¡Ajá!
+
+RUBEN:Vale, pero como no me digas qué es...
+
+GUILLERMO:Un disolvente que estoy inventando. ¡Potentísimo! Si metes el dedo, en dos minutos adiós dedo. La fórmula lleva Coca-cola. Por cierto, he tenido que sacarte un par de latas que tenías en la nevera.
+
+RUBEN:No importa. Interesante... Bueno, voy a ver si me pongo a estudiar, que tengo el examen dentro de dos semanas y todavía no me he mirado nada.
+
+(GUILLERMO,volverseloco)
+
+GUILLERMO: Ponte, ponte, no sea que te cateen. Oye, mañana vendrá a comer un primo mío que ha empezado a trabajar aquí al lado. Hace tiempo que no le veo. Estarás, ¿no? Nos podías hacer esos espaguetis que te salen tan bien.
+
+RUBEN: Sí, claro, y luego os friego los platos, ¿no? ¡Qué morro!
+
+(RUBEN,caminar,30,100)
+
+(RUBEN,reir)
+
+{¿Ruben les hace los spaguetti?:Si=Escena2;No=Escena3}
+

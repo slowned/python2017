@@ -8,14 +8,15 @@ class HistoryParser(object):
         self.scenes_parser()
 
     def save_scene(self,scene,line):
-        # Genera Escena.txt --> dialogo(lines)
+        # Genera Escena.txt  
         print (scene)
         filename = "{0}.txt".format(scene)
         with open(filename, 'a') as f:
             f.write(line.encode("utf-8") + os.linesep)
 
     def new_scene(self,line):
-        l = line.strip('[').strip(']').replace(' ','').split(',')
+        # Rotorna el nombre de la escena [Escena1,escena1.txt] >> "Escena1"
+        l = str(line.strip('[').strip(']').replace(' ','').split(','))
         return l[0]
 
     def scenes_parser(self):

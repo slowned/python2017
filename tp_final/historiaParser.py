@@ -12,11 +12,11 @@ class HistoryParser(object):
         print (scene)
         filename = "{0}.txt".format(scene)
         with open(filename, 'a') as f:
-            f.write(line.encode("utf-8") + os.linesep)
+            f.write(line.encode("utf-8"))# + os.linesep)
 
     def new_scene(self,line):
         # Rotorna el nombre de la escena [Escena1,escena1.txt] >> "Escena1"
-        l = str(line.strip('[').strip(']').replace(' ','').split(','))
+        l = line.strip('[').strip(']').replace(' ','').split(',')
         return l[0]
 
     def scenes_parser(self):

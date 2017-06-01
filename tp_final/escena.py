@@ -39,3 +39,5 @@ class Scene(HistoryParser):
                     actor_dialogo[l[0]] = []
                     actor_dialogo[l[0]].append(s)
 
+    def secuencia(self):
+        return self.secuencia

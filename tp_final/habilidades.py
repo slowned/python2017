@@ -16,12 +16,12 @@ class posicionar(pilasengine.habilidades.Habilidad):
 
 class caminar(object):
 
-    def iniciar(self,actor):
-        self.receptor = actor
+    #def iniciar(self,actor):
+    #    self.receptor = actor
 
-    def actualizar(self):
-        self.receptor.x = self.x
-        self.receptor.y = self.y
+    #def actualizar(self):
+    #    self.receptor.x = self.x
+    #    self.receptor.y = self.y
 
 class correr(object):
     pass
@@ -30,7 +30,8 @@ class saltar(object):
     pass
 
 class volverse_loco(object):
-    pass
+    for i in range(3):
+        self.rotacion = 350
 
 class reir(object):
     pass

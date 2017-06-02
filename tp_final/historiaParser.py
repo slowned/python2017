@@ -2,7 +2,7 @@
 
 import io, os
 
-class HistoriParser(object):
+class HistoriaParser(object):
 
     self.cantidad = ''
 
@@ -10,18 +10,19 @@ class HistoriParser(object):
         self.nombre = nombre
         self.escenas = []
         self.__historia_parser(self.escenas)
-        self.puntaje = ''
+        self.puntaje = 0 
+        self.decision = ''
 
     def __guardar_escena(self,scene,line):
-        # Genera Escena.txt  
+        """ Crea escena.txt """
         filename = "{0}.txt".format(scene)
         with open(filename, 'a') as f:
             f.write(line.encode("utf-8"))# + os.linesep)
 
     def __nueva_escena(self,line,escenas):
-        # Rotorna el nombre de la escena [Escena1,escena1.txt] >> "Escena1"
+        """ Agrega la escena y devuelve el nombre de la misma"""
         l = line.strip('[').strip(']').replace(' ','').split(',')
-        escenas.append(l[0])
+        self.escenas.append(l[0])
         return l[0]
 
     def __historia_parser(self,escenas):

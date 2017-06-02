@@ -6,12 +6,12 @@ pilas = pilasengine.iniciar()
 class ActorPelicula(pilasengine.actores.Actor):
 
 
-    def iniciar(self, nombre, position, dialogo):
+    def iniciar(self, nombre, dialogo):
 	self.imagen = pilas.imagenes.cargar('imagenes/'+random.choice(os.listdir('imagenes/')))# if imagen else "imagenes/ribbit7-300px.png"
 	self.nombre = nombre
-	self.lineas=dialogo
-	self.x = position[0][0]
-	self.y = position[0][1]
+	self.lineas = dialogo
+	self.x = random.randrange(-100,100)
+	self.y = random.randrange(-100,100) 
         self.escala=0.3
 
     def get_nombre(self):

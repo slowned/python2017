@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from historiaParser import HistoryParser
+from historiaParser import HistoriaParser
 import io,os
 """-------------se crea la escena--------------------"""
 
 class Scene(HistoryParser):
-    def __init__(self,nombre):
-	self.name = ''
-        self.actor_dialogo = {} 
-        #self.actores = {} # {'juan':juan}
-        self.secuencia = [] # juan, jorge, camina, juan, {desicion}
-	self.script_parcer(self.secuencia,self.actor_dialogo,nombre)
 
-    def script_parcer(self,secuencia,actor_dialogo,nombre):
+    def __init__(self,nombre):
+	self.nombre = nombre
+        self.dialogos = {} # {'juan':["hola","soy juan"]} 
+        self.actores = {} # {'juan':juan}
+        self.secuencia = [] # ['juan', jorge, camina, juan, {desicion}]
+	self.__script_parcer(self.secuencia,self.actor_dialogo,nombre)
+
+    def __script_parcer(self,secuencia,actor_dialogo,nombre):
         """ Genera la secuencia de acciones y 
         actores con sus dialogos """
 

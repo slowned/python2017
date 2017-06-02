@@ -14,8 +14,6 @@ class ActorPelicula(pilasengine.actores.Actor):
 	self.y = position[0][1]
         self.escala=0.3
 
-        self.decir('Hola, me llamo '+ self.nombre)
-
     def get_nombre(self):
 	return str(self.nombre)
 

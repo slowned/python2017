@@ -11,12 +11,26 @@ class Scene(object):
 	self.nombre = nombre
         self.actor_dialogos = {} # {'juan':["hola","soy juan"]} 
         self.actores = {} # {'juan':ObjActorPelicula}
-        self.secuencia = [] # ['juan', jorge, camina, juan, {desicion}]
+        self.secuencia = [] # [juan,jorge,(accion),juan,{desicion}]
 	self.__script_parcer()
+
+    def reproducir(self):
+        """ Reproduce una escena """
+        for elem in self.secuencia:
+            try:
+                a = self.actores[elem]
+                a.decir(a.get_linea())
+            except IndexError:
+                if es_accion(elem):
+                    pilas.avisar("ACCION")
+                elif es_decision(elem):
+                    pilas.avisar("DECISION")
+                else:
+                    pilas.avisar("FIN")
 
     def __script_parcer(self):
         """ Genera la secuencia de acciones y 
-        actores con sus actor_dialogos """
+        actores con sus dialogos """
 
         filename = "{0}.txt".format(nombre)
         guion = io.open(filename, "r", encoding="utf-8")

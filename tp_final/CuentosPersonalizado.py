@@ -9,20 +9,16 @@ import pilasengine
 
 pilas = pilasengine.iniciar()
 
-def actuando(actor,secuencia):
-    try:
-        a=actor[secuencia[0]]
-        actor[secuencia[0]].decir(actor[secuencia[0]].get_linea())
-        secuencia.remove(secuencia[0])
-    except IndexError:
-        if es_accion(secuencia[0]):
-            pilas.avisar("ACCION")
-        elif es_decision(secuendia[0]):
-            pilas.avisar("DECISION")
-        else:
-            pilas.avisar("FIN")
+def contar_historia(historia):
+    for escena in len(historia.escenas):
+        s = Scene(escena)
+        actuando(s)
+
 
 h = HistoryParser()
+
+ss = h.crear_escenas()
+
 s = Scene(h.escena[0])
 escenas = []
 

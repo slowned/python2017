@@ -11,16 +11,17 @@ class HistoriaParser(object):
         self.escenas = []
         self.__historia_parser(self.escenas)
         self.puntaje = 0 
-        self.decision = ''
 
-    def __guardar_escena(self,scene,line):
+    def __generar_escena(self,scene,line):
         """ Crea escena.txt """
+
         filename = "{0}.txt".format(scene)
         with open(filename, 'a') as f:
             f.write(line.encode("utf-8"))# + os.linesep)
 
     def __nueva_escena(self,line,escenas):
         """ Agrega la escena y devuelve el nombre de la misma"""
+
         l = line.strip('[').strip(']').replace(' ','').split(',')
         self.escenas.append(l[0])
         return l[0]
@@ -35,7 +36,11 @@ class HistoriaParser(object):
         for line in lines:
             if (line[0] == '['):
                 scene = self.__nueva_escena(line,escenas)
-            self.__guardar_escena(scene,line)
+            self.__generar_escena(scene,line)
+
+    def crear_escenas(self):
+        for e in len(self.escenas):
+            Scene(e)
 
     def set_puntaje(self,puntaje):
         pass

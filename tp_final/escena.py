@@ -7,15 +7,20 @@ import io,os
 
 class Scene(object):
 
+    escenas = []
+
     def __init__(self,nombre):
 	self.nombre = nombre
         self.actor_dialogos = {} # {'juan':["hola","soy juan"]} 
         self.actores = {} # {'juan':ObjActorPelicula}
         self.secuencia = [] # [juan,jorge,(accion),juan,{desicion}]
 	self.__script_parcer()
+        self.escenas.append(self)
+        self.decision = {}
 
     def reproducir(self):
         """ Reproduce una escena """
+
         for elem in self.secuencia:
             try:
                 a = self.actores[elem]

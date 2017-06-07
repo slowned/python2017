@@ -35,6 +35,13 @@ class Scene(object):
                 else:
                     pilas.avisar("FIN")
 
+    def crear_actores(dic):
+
+        for actor in self.actor_dialogos.keys():
+            lineas = actor_dialogos[actor] 
+            act = ActorPelicula(pilas,nombre=actor,actor_dialogo=lineas)
+            self.actores[act.get_nombre()] = act
+
     def __script_parcer(self):
         """ Genera la secuencia de acciones y 
         actores con sus dialogos """
@@ -62,12 +69,6 @@ class Scene(object):
                     self.actor_dialogos[l[0]].append(s)
 
 """----------------Se crean Actores------------------"""
-def crear_actores(dic):
-
-        for actor in self.actor_dialogos.keys():
-            lineas = actor_dialogos[actor] 
-            act = ActorPelicula(pilas,nombre=actor,actor_dialogo=lineas)
-            self.actores[act.get_nombre()] = act
 
 
 

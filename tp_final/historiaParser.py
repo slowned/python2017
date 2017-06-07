@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import io, os
+from funciones import es_escena
 
 class HistoriaParser(object):
 
@@ -34,7 +35,7 @@ class HistoriaParser(object):
         history.close()
 
         for line in lines:
-            if (line[0] == '['):
+            if es_escena():
                 scene = self.__nueva_escena(line,escenas)
             self.__generar_escena(scene,line)
 

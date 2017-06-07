@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from crear_actor import ActorPelicula
 import io,os
+from crear_actor import ActorPelicula
+from funciones import es_escena, es_accion, es_desicion
+j
 """-------------se crea la escena--------------------"""
 
 class Scene(object):
@@ -43,11 +45,11 @@ class Scene(object):
         guion.close()
 
         for linea in lineas:
-            if linea[0] == '[':
+            if es_escena(linea[0]):
                 self.nombre = self.nombre
-	    elif linea[0] == '(':
+	    elif es_accion(linea[0]):
                 self.secuencia.append(linea)
-	    elif linea[0] == '{':
+	    elif es_desicion(linea[0]):
                 self.secuencia.append(linea)
 	    else:
                 l = linea.split(':')
@@ -59,7 +61,29 @@ class Scene(object):
                     self.actor_dialogos[l[0]] = []
                     self.actor_dialogos[l[0]].append(s)
 
+"""----------------Se crean Actores------------------"""
+def crear_actores(dic):
+
         for actor in self.actor_dialogos.keys():
             lineas = actor_dialogos[actor] 
             act = ActorPelicula(pilas,nombre=actor,actor_dialogo=lineas)
             self.actores[act.get_nombre()] = act
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-def es_linea(s):
+def es_escena(s):
     return s == '['
 
 def es_accion(s):

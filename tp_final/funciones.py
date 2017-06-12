@@ -4,5 +4,5 @@ def es_escena(s):
 def es_accion(s):
     return s == '('
 
-def es_desicion(s):
+def es_decision(s):
     return s == '{'

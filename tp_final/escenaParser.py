@@ -1,24 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import io,os
+import io,os,pilasengine
 from crear_actor import ActorPelicula
-from funciones import es_escena, es_accion, es_desicion
-j
+from funciones import es_escena, es_accion, es_decision
 """-------------se crea la escena--------------------"""
+pilas = pilasengine.iniciar()
 
-class Scene(object):
+class Scene(pilasengine.escenas.Escena):
 
     escenas = []
 
-    def __init__(self,nombre):
+    def iniciar(self,nombre):
 	self.nombre = nombre
+        self.imagen = ''
         self.actor_dialogos = {} # {'juan':["hola","soy juan"]} 
-        self.actores = {} # {'juan':ObjActorPelicula}
         self.secuencia = [] # [juan,jorge,(accion),juan,{desicion}]
+        self.decision = []
+        self.actores = {} # {'juan':ObjActorPelicula}
 	self.__script_parcer()
         self.escenas.append(self)
-        self.decision = {}
 
     def reproducir(self):
         """ Reproduce una escena """
@@ -35,29 +36,38 @@ class Scene(object):
                 else:
                     pilas.avisar("FIN")
 
-    def crear_actores(dic):
+    def crear_actores(self):
 
         for actor in self.actor_dialogos.keys():
-            lineas = actor_dialogos[actor] 
-            act = ActorPelicula(pilas,nombre=actor,actor_dialogo=lineas)
+            lineas = self.actor_dialogos[actor] 
+            act = ActorPelicula(pilas,nombre=actor,dialogo=lineas)
             self.actores[act.get_nombre()] = act
 
     def __script_parcer(self):
         """ Genera la secuencia de acciones y 
         actores con sus dialogos """
 
-        filename = "{0}.txt".format(nombre)
+        filename = "cuentos/ejemplo/{0}.txt".format(self.nombre)
         guion = io.open(filename, "r", encoding="utf-8")
         lineas = guion.readlines()
         guion.close()
 
         for linea in lineas:
+
             if es_escena(linea[0]):
-                self.nombre = self.nombre
+                l = linea.strip('[').replace(']','').replace(' ','').split(',')
+                self.nombre = l[0]
+                self.imagen = pilas.imagenes.cargar('/home/slowned/UNLP/python2017/python2017/tp_final/fondo1.png')
+
 	    elif es_accion(linea[0]):
                 self.secuencia.append(linea)
-	    elif es_desicion(linea[0]):
+	    elif es_decision(linea[0]):
                 self.secuencia.append(linea)
+                d = linea.split(':')
+                dl = d[1].split(';')
+                self.decision.append(d[0])
+                for d in dl:
+                    self.decision.append(d)
 	    else:
                 l = linea.split(':')
                 s = l[1].strip()
@@ -67,10 +77,9 @@ class Scene(object):
                 except(KeyError): 
                     self.actor_dialogos[l[0]] = []
                     self.actor_dialogos[l[0]].append(s)
+        self.crear_actores()
 
 """----------------Se crean Actores------------------"""
-
-
 
 
 

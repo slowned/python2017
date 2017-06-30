@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 import pilasengine
 
-class Opciones(pilasengine.escenas.Escena):
+class Opcion(pilasengine.escenas.Escena):
 
     def iniciar(self):
         t = self.pilas.actores.Texto(u"OPCIONES:")

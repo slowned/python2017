@@ -9,49 +9,19 @@ import pilasengine
 
 pilas = pilasengine.iniciar()
 
-def contar_historia(historia):
-        s = Scene(escena)
-        s.reproducir()
+#def contar_historia(historia):
+#        s = Scene(escena)
+#        s.reproducir()
 
+class CuentosPersonalizado(HistoriaParser):
 
-h = HistoriaParser()
+    def iniciar(self,cuento):
+        super(CuentosPersonalizado, self).__init__(cuento)
+        self.secuencia_escenas[0][1].reproducir()
 
-
-contar_historia(h)
-
-
-pilas.ejecutar()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#b = pilas.interfaz.Boton("empezar dialogo")
-#b.y = -125
-#b.x = 125
-#
-#
-#b.conectar(lambda : actuar(s.actores,s.secuencia))
-
+    def ejecutar(self):
+        pass
+    def actualizar(self):
+        pass
 
 pilas.ejecutar()

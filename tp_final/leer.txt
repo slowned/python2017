@@ -1,1 +1,3 @@
-Falta implementar toda la interface grafica con pilas.
+No puede acoplar todos los modulos
+
+juego.py (main)

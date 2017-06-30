@@ -33,8 +33,7 @@ class Scene(pilasengine.escenas.Escena):
                     pilas.avisar("ACCION")
                 elif es_decision(elem):
                     pilas.avisar("DECISION")
-                else:
-                    pilas.avisar("FIN")
+                else: pilas.avisar("FIN")
 
     def crear_actores(self):
 
@@ -46,8 +45,9 @@ class Scene(pilasengine.escenas.Escena):
     def __script_parcer(self):
         """ Genera la secuencia de acciones y 
         actores con sus dialogos """
-
-        filename = "cuentos/ejemplo/{0}.txt".format(self.nombre)
+        path = "cuentos/CuentoEjemplo/"
+        #falta path = cuentos/cuentoejemplo/
+        filename = path+"{0}.txt".format(self.nombre)
         guion = io.open(filename, "r", encoding="utf-8")
         lineas = guion.readlines()
         guion.close()
@@ -57,10 +57,11 @@ class Scene(pilasengine.escenas.Escena):
             if es_escena(linea[0]):
                 l = linea.strip('[').replace(']','').replace(' ','').split(',')
                 self.nombre = l[0]
-                self.imagen = pilas.imagenes.cargar('/home/slowned/UNLP/python2017/python2017/tp_final/fondo1.png')
+                self.imagen = pilas.imagenes.cargar(path+'{0}.png'.format(l[1]))
 
-	    elif es_accion(linea[0]):
+            elif es_accion(linea[0]):
                 self.secuencia.append(linea)
+
 	    elif es_decision(linea[0]):
                 self.secuencia.append(linea)
                 d = linea.split(':')
@@ -80,20 +81,3 @@ class Scene(pilasengine.escenas.Escena):
         self.crear_actores()
 
 """----------------Se crean Actores------------------"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

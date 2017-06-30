@@ -10,7 +10,6 @@ class GuionParser(object):
         self.secuencia_dialogo = []
         self.actor_dialogo = {}
         self.guion_parser(self.secuencia_dialogo,self.actor_dialogo)
-
     def modifica_linea(dialogo):
 	p = parse(dialogo)
 	lista = p.split(' ') 
@@ -29,10 +28,14 @@ class GuionParser(object):
 
     def guardo_archivo_actor(self,actor,dialogo):
     # Genera NombreActor.txt --> dialogo(lines)
+        d = dialogo.strip()
+        dm = modifica_linea(d)
         act = actor.replace(' ','')
         filename = "{0}.txt".format(act)
         with open(filename, 'a') as f:
             f.write(d.encode("utf-8") + os.linesep)
+        #with io.open(arch, "a", encoding="utf-8") as f:
+        #    f.write(d + os.linesep)
 
     def guion_parser(self,secuencia_dialogo,actor_dialogo):
 
@@ -41,16 +44,14 @@ class GuionParser(object):
 
 	# Genero secuencia y linieas de cada actor
 	for dialogo in lines:
-            l = dialogo.split(':')
-            d = l[1].strip()
-            dm = modifica_linea(d)
-            secuencia_dialogo.append(l[0])
-            guardo_archivo_actor(l[0],dm)
-            
-            try:
-        	actor_dialogo[l[0]].append(dm)
-            except(KeyError): 
-        	actor_dialogo[l[0]] = []
-        	actor_dialogo[l[0]].append(dm)
+	    l = dialogo.split(':')
+	    secuencia_dialogo.append(l[0])
+            self.guardo_archivo_actor(l[0],l[1])
+	    
+	    try:
+		actor_dialogo[l[0]].append(l[1])
+	    except(KeyError): 
+		actor_dialogo[l[0]] = []
+		actor_dialogo[l[0]].append(l[1])
 
 

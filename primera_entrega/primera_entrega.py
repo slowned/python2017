@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-from boton import *
+#from boton import *
 from crear_dialogo import GuionParser
 from crear_actor import ActorPelicula
 from pattern.es import conjugate, split, singularize, parse, INFINITIVE

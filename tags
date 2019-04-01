@@ -1,0 +1,114 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ActorPelicula	primera_entrega/crear_actor.py	/^class ActorPelicula(pilasengine.actores.Actor):$/;"	c
+ActorPelicula	tp_final/crear_actor.py	/^class ActorPelicula(pilasengine.actores.Actor):$/;"	c
+CuentosPersonalizado	tp_final/CuentosPersonalizado.py	/^class CuentosPersonalizado(HistoriaParser):$/;"	c
+EscenaCuento	tp_final/sinopsis.py	/^class EscenaCuento(pilasengine.escenas.Escena):$/;"	c
+EscenaMenu	tp_final/escena_menu.py	/^class EscenaMenu(pilasengine.escenas.Escena):$/;"	c
+GuionParser	primera_entrega/archivosJSON.py	/^class GuionParser(object):$/;"	c
+GuionParser	primera_entrega/crear_dialogo.py	/^class GuionParser(object):$/;"	c
+HistoriaParser	tp_final/historiaParser.py	/^class HistoriaParser(pilasengine.escena.Escena):$/;"	c
+Opcion	tp_final/escena_opciones.py	/^class Opcion(pilasengine.escenas.Escena):$/;"	c
+PantallaBienvenida	tp_final/ejemplo_escena.py	/^class PantallaBienvenida(pilasengine.escenas.Escena):$/;"	c
+Scene	tp_final/escenaParser.py	/^class Scene(pilasengine.escenas.Escena):$/;"	c
+Seleccion	tp_final/escena_seleccion.py	/^class Seleccion(pilasengine.escenas.Escena):$/;"	c
+__generar_escena	tp_final/historiaParser.py	/^    def __generar_escena(self,scene,line):$/;"	m	class:HistoriaParser	file:
+__historia_parser	tp_final/historiaParser.py	/^    def __historia_parser(self,escenas):$/;"	m	class:HistoriaParser	file:
+__init__	primera_entrega/archivosJSON.py	/^    def __init__(self):$/;"	m	class:GuionParser
+__init__	primera_entrega/crear_dialogo.py	/^    def __init__(self):$/;"	m	class:GuionParser
+__init__	tp_final/historiaParser.py	/^    def __init__(self, nombre):$/;"	m	class:HistoriaParser
+__nueva_escena	tp_final/historiaParser.py	/^    def __nueva_escena(self,line,escenas):$/;"	m	class:HistoriaParser	file:
+__script_parcer	tp_final/escenaParser.py	/^    def __script_parcer(self):$/;"	m	class:Scene	file:
+_opciones	tp_final/escena_menu.py	/^    def _opciones(self):$/;"	m	class:EscenaMenu
+_regresar	tp_final/escena_opciones.py	/^    def _regresar(self, evento):$/;"	m	class:Opcion
+_regresar	tp_final/escena_seleccion.py	/^    def _regresar(self, evento):$/;"	m	class:Seleccion
+_salir_del_juego	tp_final/escena_menu.py	/^    def _salir_del_juego(self):$/;"	m	class:EscenaMenu
+_seleccionar_cuento	tp_final/escena_menu.py	/^    def _seleccionar_cuento(self):$/;"	m	class:EscenaMenu
+act	primera_entrega/primera_entrega.py	/^    act = ActorPelicula(pilas,nombre=actor,position=pos,dialogo=lineas)$/;"	v
+actor_dialogo	primera_entrega/primera_entrega.py	/^actor_dialogo = {}$/;"	v
+actores	primera_entrega/primera_entrega.py	/^actores={}$/;"	v
+actualizar	tp_final/CuentosPersonalizado.py	/^    def actualizar(self):$/;"	m	class:CuentosPersonalizado
+actualizar	tp_final/ejemplo_escena.py	/^    def actualizar(self):$/;"	m	class:PantallaBienvenida
+actualizar	tp_final/habilidades.py	/^    def actualizar(self):$/;"	m	class:posicionar
+archivo_actor	primera_entrega/archivosJSON.py	/^    def archivo_actor(self, actor, dialogo):$/;"	m	class:GuionParser
+b	primera_entrega/primera_entrega.py	/^b = pilas.interfaz.Boton("empezar dialogo")$/;"	v
+caminar	tp_final/habilidades.py	/^class caminar(object):$/;"	c
+char	primera_entrega/dialogo.py	/^char = ActorPelicula(pilas, nombre='kian', position([(2,4)])$/;"	v
+correr	tp_final/habilidades.py	/^class correr(object):$/;"	c
+crear_actores	tp_final/escenaParser.py	/^    def crear_actores(self):$/;"	m	class:Scene
+crear_escenas	tp_final/historiaParser.py	/^    def crear_escenas(self):$/;"	m	class:HistoriaParser
+d	primera_entrega/primera_entrega.py	/^    d = l[1].strip()$/;"	v
+dialogo	primera_entrega/dialogo.py	/^dialogo = pilas.actores.Dialogo()$/;"	v
+dm	primera_entrega/primera_entrega.py	/^    dm = modifica_linea(d)$/;"	v
+ejecutar	tp_final/CuentosPersonalizado.py	/^    def ejecutar(self):$/;"	m	class:CuentosPersonalizado
+ejecutar	tp_final/ejemplo_escena.py	/^    def ejecutar(self):$/;"	m	class:PantallaBienvenida
+ejercicio_cinco	practicas/practica_uno/practica_uno.py	/^def ejercicio_cinco():$/;"	f
+ejercicio_seis	practicas/practica_uno/practica_uno.py	/^def ejercicio_seis():$/;"	f
+es_accion	tp_final/funciones.py	/^def es_accion(s):$/;"	f
+es_decision	tp_final/funciones.py	/^def es_decision(s):$/;"	f
+es_escena	tp_final/funciones.py	/^def es_escena(s):$/;"	f
+escenas	tp_final/escenaParser.py	/^    escenas = []$/;"	v	class:Scene
+get_linea	primera_entrega/crear_actor.py	/^    def get_linea(self):$/;"	m	class:ActorPelicula
+get_linea	tp_final/crear_actor.py	/^    def get_linea(self):$/;"	m	class:ActorPelicula
+get_nombre	primera_entrega/crear_actor.py	/^    def get_nombre(self):$/;"	m	class:ActorPelicula
+get_nombre	tp_final/crear_actor.py	/^    def get_nombre(self):$/;"	m	class:ActorPelicula
+get_puntaje	tp_final/historiaParser.py	/^    def get_puntaje(self):$/;"	m	class:HistoriaParser
+guardo_archivo_actor	primera_entrega/crear_dialogo.py	/^    def guardo_archivo_actor(self,actor,dialogo):$/;"	m	class:GuionParser
+guardo_archivo_actor	primera_entrega/primera_entrega.py	/^def guardo_archivo_actor(actor,dialogo):$/;"	f
+guion	primera_entrega/crear_dialogo.py	/^	guion = io.open('guion.txt', "r", encoding="utf-8")$/;"	v	class:GuionParser
+guion	primera_entrega/primera_entrega.py	/^guion = io.open('guion.txt', "r", encoding="utf-8")$/;"	v
+guion_parser	primera_entrega/archivosJSON.py	/^    def guion_parser(self,actor_dialogo,secuencia_dialogo):$/;"	m	class:GuionParser
+guion_parser	primera_entrega/crear_dialogo.py	/^    def guion_parser(self,secuencia_dialogo,actor_dialogo):$/;"	m	class:GuionParser
+hablando	primera_entrega/primera_entrega.py	/^def hablando(actor, secuencia):$/;"	f
+hablar_infinitivo	tp_final/habilidades.py	/^class hablar_infinitivo(object):$/;"	c
+hablar_normal	tp_final/habilidades.py	/^class hablar_normal(object):$/;"	c
+iniciar	primera_entrega/crear_actor.py	/^    def iniciar(self, nombre, position, dialogo):$/;"	m	class:ActorPelicula
+iniciar	tp_final/CuentosPersonalizado.py	/^    def iniciar(self,cuento):$/;"	m	class:CuentosPersonalizado
+iniciar	tp_final/crear_actor.py	/^    def iniciar(self, nombre, dialogo):$/;"	m	class:ActorPelicula
+iniciar	tp_final/ejemplo_escena.py	/^    def iniciar(self):$/;"	m	class:PantallaBienvenida
+iniciar	tp_final/escenaParser.py	/^    def iniciar(self,nombre):$/;"	m	class:Scene
+iniciar	tp_final/escena_menu.py	/^    def iniciar(self):$/;"	m	class:EscenaMenu
+iniciar	tp_final/escena_opciones.py	/^    def iniciar(self):$/;"	m	class:Opcion
+iniciar	tp_final/escena_seleccion.py	/^    def iniciar(self):$/;"	m	class:Seleccion
+iniciar	tp_final/habilidades.py	/^    def iniciar(self,actor,posicion):$/;"	m	class:posicionar
+l	primera_entrega/crear_actor.py	/^	l=self.lineas[0]$/;"	v	class:ActorPelicula
+l	primera_entrega/primera_entrega.py	/^    l = dialogo.split(':')$/;"	v
+l	tp_final/crear_actor.py	/^	l=self.lineas[0]$/;"	v	class:ActorPelicula
+lineas	primera_entrega/primera_entrega.py	/^    lineas = actor_dialogo[actor] $/;"	v
+lines	primera_entrega/crear_dialogo.py	/^	lines = guion.readlines()$/;"	v	class:GuionParser
+lines	primera_entrega/primera_entrega.py	/^lines = guion.readlines()$/;"	v
+lista	primera_entrega/crear_dialogo.py	/^	lista = p.split(' ') $/;"	v	class:GuionParser
+llorar	tp_final/habilidades.py	/^class llorar(object):$/;"	c
+modifica_linea	primera_entrega/crear_dialogo.py	/^    def modifica_linea(dialogo):$/;"	m	class:GuionParser
+modifica_linea	primera_entrega/primera_entrega.py	/^def modifica_linea(dialogo):$/;"	f
+mono	primera_entrega/dialogo.py	/^mono = pilas.actores.Mono()$/;"	v
+otro_mono	primera_entrega/dialogo.py	/^otro_mono = pilas.actores.Mono()$/;"	v
+p	primera_entrega/crear_dialogo.py	/^	p = parse(dialogo)$/;"	v	class:GuionParser
+papeles	primera_entrega/primera_entrega.py	/^papeles = set(secuencia_dialogo)$/;"	v
+pilas	primera_entrega/crear_actor.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	primera_entrega/dialogo.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	primera_entrega/primera_entrega.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	tp_final/CuentosPersonalizado.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	tp_final/crear_actor.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	tp_final/ejemplo_escena.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	tp_final/escenaParser.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	tp_final/escena_seleccion.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	tp_final/juego.py	/^pilas = pilasengine.iniciar()$/;"	v
+pilas	tp_final/sinopsis.py	/^pilas = pilasengine.iniciar()$/;"	v
+pos	primera_entrega/primera_entrega.py	/^pos = [] $/;"	v
+posicionar	tp_final/habilidades.py	/^class posicionar(pilasengine.habilidades.Habilidad):$/;"	c
+random_pos	primera_entrega/primera_entrega.py	/^def random_pos():$/;"	f
+reir	tp_final/habilidades.py	/^class reir(object):$/;"	c
+reproducir	tp_final/escenaParser.py	/^    def reproducir(self):$/;"	m	class:Scene
+saltar	tp_final/habilidades.py	/^class saltar(object):$/;"	c
+secuencia_dialogo	primera_entrega/primera_entrega.py	/^secuencia_dialogo = []$/;"	v
+seguir_a	tp_final/habilidades.py	/^class seguir_a(object):$/;"	c
+set_puntaje	tp_final/historiaParser.py	/^    def set_puntaje(self,puntaje):$/;"	m	class:HistoriaParser
+sinopsis	tp_final/escena_seleccion.py	/^    def sinopsis(self):$/;"	m	class:Seleccion
+sonar	tp_final/habilidades.py	/^class sonar(object):$/;"	c
+volverse_loco	tp_final/habilidades.py	/^class volverse_loco(object):$/;"	c
+xy	primera_entrega/primera_entrega.py	/^    xy = pos[0]$/;"	v

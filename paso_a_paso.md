@@ -1,7 +1,7 @@
-## CPIO
+### CPIO
 * sirve para copiar archivos entre archivos y directorios, soporta varios formatos (binario, varios formatos tar, etc).
 
-## MOUNT
+### MOUNT
 * Monta un filesystem
 
 ```console
@@ -17,7 +17,7 @@ La opcion -t type es opcional.
 mount [-l] [-t type]
 ```
 
-## SWITCH_ROOR
+### SWITCH_ROOR
 * Mueve las particiones montadas existentes a una nueva raiz y hace de esta la nueva raiz inicial del filesystem y junto con sus procesos de inicio **init**
 ```console
 switch_root newroot init [args..]
@@ -86,7 +86,7 @@ nux/linux.mk:511: *** No kernel defconfig name specified, check your BR2_LINUX_K
 Makefile:79: recipe for target '_all' failed
 make: *** [_all] Error 2
 ```
-  ##Solucion:
+**Solucion:**
     Abrir el menu de configuraciones de buildroot acceder al a las configuraciones del Kernel, ahi vi que en la opcion de arquitectura estaba seleccionada la opcion *_Using an in-tree defconfig file_* 
 
     () Using an in-tree defconfig file
@@ -108,7 +108,7 @@ make[1]: *** [/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/buil
 Makefile:79: recipe for target '_all' failed
 make: *** [_all] Error 2
 ```
-  ##Solucion:
+**Solucion:**
 ```console
 sudo make
 ```
@@ -122,7 +122,8 @@ Aborting.  '/home/ma/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/board
 package/pkg-generic.mk:193: recipe for target '/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/build/linux-4.17.19/.stamp_patched' failed
 make: *** [/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/build/linux-4.17.19/.stamp_patched] Error 1
 ```
-  ## Solucion:
+
+**Solucion:**
     El problema fue que se in gresaron las configuraciones de linux en un lugar incorrecto.
     Entrar al menu de configuraciones del buildroot, ir a las opciones de configuracion de Kernel seleccionar (def)config y agregar el path del archivo __linux.config__
 
@@ -140,8 +141,8 @@ make: *** [/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/build/l
 sudo make
 > /buildroot/output/images/rootfs.cpio.xz
 > /buildroot/output/images/rootfs.ext4
-> /buildroot/output/images/rootfs.ext2
 ```
+Se generaron 2 files nuevos
 
 Pararnos sobre __/buildroot/output/images__ y ejecutar los siguientes comandos
 
@@ -179,36 +180,3 @@ en una breve serie de pasos:
 ```console
 sudo cpio rootfs.cpio /proc/cmdline
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1. **Incorporar la última versión del Kernel Linux disponible en el menú.**
-1. **Configurar el kernel utilizando la opción custom e indicando que se usará la configuración
-$(TOPDIR)/boards/qemu/x86/linux.config**
-1. **Configurar Buildroot para generar 2 imágenes:**
-			* cpio comprimido con xz
-			* ext4fs
-1. **Incorporar el bootloader syslinux con la opción mbr**
-
-1. ****
-1. ****
-1. ****
-1. ****

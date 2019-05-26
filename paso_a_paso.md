@@ -1,40 +1,13 @@
-### CPIO
-* sirve para copiar archivos entre archivos y directorios, soporta varios formatos (binario, varios formatos tar, etc).
-
-### MOUNT
-* Monta un filesystem
-
-```console
-mount -t type divice dir
-:' Esto le dice al kernet que asocie el filesystem que se encuentra en divice (que es del tipo de type) en el directorio dir.
-La opcion -t type es opcional.
-'
-```
-
-* Lista filesystems montados (de un type)
-
-```console
-mount [-l] [-t type]
-```
-
-### SWITCH_ROOR
-* Mueve las particiones montadas existentes a una nueva raiz y hace de esta la nueva raiz inicial del filesystem y junto con sus procesos de inicio **init**
-```console
-switch_root newroot init [args..]
-```
-
-## xz
-Es una erramienta de compresion y descompresion de archivos con una sintaxis similar a las de __gzip__.
-
 # Compilación de sistemas con Buildroot
 
 1. Clonar Buildroot desde su repositorio usando git.
-```console
-git clone --depth=1 --branch=2018.08 git://git.busybox.net/buildroot
-cd buildroot
-make menuconfig
-```
-  Al hacer *_make menuconfig_* por primera vez fallo, por faltas de dependencias, lo solucione instalas via *_apt-get install_*
+
+  ```console
+  git clone --depth=1 --branch=2018.08 git://git.busybox.net/buildroot
+  cd buildroot
+  make menuconfig
+  ```
+  - Al hacer *_make menuconfig_* por primera vez fallo, por faltas de dependencias, lo solucione instalas via *_apt-get install_*
 
 >   **Buildroot configuration**
 > - Target options --->
@@ -80,13 +53,15 @@ make
 > output/images/rootfs.cpio.gz
 > output/images/rootfs.tar
 
-* **make** prueba uno: Error!
+
+#### **Make** prueba uno: Error!
+
 ```console
 nux/linux.mk:511: *** No kernel defconfig name specified, check your BR2_LINUX_KERNEL_DEFCONFIG setting.  Stop.
 Makefile:79: recipe for target '_all' failed
 make: *** [_all] Error 2
 ```
-**Solucion:**
+* **Solucion:**
     Abrir el menu de configuraciones de buildroot acceder al a las configuraciones del Kernel, ahi vi que en la opcion de arquitectura estaba seleccionada la opcion *_Using an in-tree defconfig file_* 
 
     () Using an in-tree defconfig file
@@ -96,7 +71,8 @@ make: *** [_all] Error 2
 Guardar y generar la imagen.
 
 
-* **make** prueba dos: Error!
+#### **Make** prueba dos: Error!
+
 ```console
 mkdir -p /home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/host/bin
 /usr/bin/install -c pkgconf /home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/host/bin/pkgconf
@@ -108,12 +84,13 @@ make[1]: *** [/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/buil
 Makefile:79: recipe for target '_all' failed
 make: *** [_all] Error 2
 ```
-**Solucion:**
+* **Solucion:**
 ```console
 sudo make
 ```
 
-* **make** prueba dos: Error!
+#### **Make** prueba tres: Error!
+
 ```console
 linux 4.17.19 Patching
 if [ -f /home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/build/linux-4.17.19/tools/perf/Documentation/Makefile ]; then printf "%%:\n\t@:\n" >/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/build/linux-4.17.19/tools/perf/Documentation/GNUmakefile; fi
@@ -123,7 +100,7 @@ package/pkg-generic.mk:193: recipe for target '/home/mariano/Documents/UNLP/SO/E
 make: *** [/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/build/linux-4.17.19/.stamp_patched] Error 1
 ```
 
-**Solucion:**
+* **Solucion:**
     El problema fue que se in gresaron las configuraciones de linux en un lugar incorrecto.
     Entrar al menu de configuraciones del buildroot, ir a las opciones de configuracion de Kernel seleccionar (def)config y agregar el path del archivo __linux.config__
 
@@ -136,6 +113,7 @@ make: *** [/home/mariano/Documents/UNLP/SO/ENTREGABLE_1/buildroot/output/build/l
 > -      (X) Using a custom (def)config file
 > -      ($(TOPDIR)/boards/qemu/x86/linux.config)
 
+* Ahora si! una vez que solucione los errores generamos la imagen.
 
 ```console
 sudo make
@@ -144,23 +122,38 @@ sudo make
 ```
 Se generaron 2 files nuevos
 
+### Comprobacion de Archivos 
 Pararnos sobre __/buildroot/output/images__ y ejecutar los siguientes comandos
+
+
+* Para probar que la imagen rootfs.cpio.xz se generó adecuadamente, se puede utilizar
+el siguiente comando de KVM/Qemu:
 
 ```console
 sudo kvm -m 512 -kernel bzImage
 -initrd rootfs.cpio.xz
 ```
 
+* Para probar que la imagen rootfs.ext4 se generó adecuadamente se puede utilizar el 
+siguiente comando de KVM/Qemu que hace que la imagen se vea en el sistema guest como
+un disco:
+
 ```console
 kvm -m 512 -kernel bzImage rootfs.ext4
 ```
-Al ejecutar estos comandos se abre una consola Qemu 
+Al ejecutar estos comandos se abre una consola Qemu indicandonos que las imagenes se generaron
+sin errores
 
+* Finalmente para completar el trabajo haciendo que rootfs.cpio.xz se comporte como un
+initramfs u rootfs.ext4 bootee imprimiendo el mensaje "Hola...":
 
 ```console
 kvm -m 512 -kernel bzImage -initrd rootfs.cpio.xz\
 -append root=/dev/sda rootfs.ext4
 ```
+
+
+
 No hice el script salte al seguiente paso...
 
 
@@ -172,11 +165,61 @@ Por lo cuál puede ser manipulado con las herramientas __xz__
 unxz rootfs.cpio.xz
 > root.cpio
 ```
+extraer como usuario root
+mkdir miinit && cd miinit
+cpio -i < ../rootfs.cpio
+rm sbin/init
+chmod +x init (script)
 
-  Pasar el control del initramfs al filesystem almacenado en disco (rootfs.ext4) se puede resumir
+
+
+mount -o loop rootfs.ext4 mnt/
+mnt/etc/init.d >> ahi estan los scripts de inicio
+
+volver a comprimir
+
+find | cpio -H newc -o | xz --check=crc32 > ../miinit.cpio.xz
+* Pasar el control del initramfs al filesystem almacenado en disco (rootfs.ext4) se puede resumir
 en una breve serie de pasos:
-  Extraer el path al filesystem desde /proc/cmdline (opción root).
+  * Extraer el path al filesystem desde /proc/cmdline (opción root).
+  * Montar el filesystem en una carpeta, por ejemplo /mnt
+  * Hacer que ese sea el nuevo root y pasar el control al init almacenado en el filesystem con switch_root.
 
 ```console
 sudo cpio rootfs.cpio /proc/cmdline
 ```
+
+
+proc/cmdline dice donde esta montado el /ext4
+
+----------------------------------------
+## Comandos utiles
+#### CPIO
+  * sirve para copiar archivos entre archivos y directorios, soporta varios formatos (binario, varios formatos tar, etc).
+
+#### MOUNT
+  * Monta un filesystem
+
+  ```console
+  mount -t type divice dir
+  ```
+  - Esto le dice al kernet que asocie el filesystem que se encuentra en divice (que es del tipo de type) en el directorio dir.
+  La opcion -t type es opcional.
+
+
+  * Lista filesystems montados (de un type)
+
+  ```console
+  mount [-l] [-t type]
+  ```
+
+#### SWITCH_ROOR
+  * Mueve las particiones montadas existentes a una nueva raiz y hace de esta la nueva raiz inicial del filesystem y junto con sus procesos de inicio **init**
+
+  ```console
+  switch_root newroot init [args..]
+  ```
+
+#### xz
+  * Es una erramienta de compresion y descompresion de archivos con una sintaxis similar a las de __gzip__.
+-----------------------------------------

@@ -130,8 +130,7 @@ Pararnos sobre __/buildroot/output/images__ y ejecutar los siguientes comandos
 el siguiente comando de KVM/Qemu:
 
 ```console
-sudo kvm -m 512 -kernel bzImage
--initrd rootfs.cpio.xz
+sudo kvm -m 512 -kernel bzImage -initrd rootfs.cpio.xz
 ```
 
 * Para probar que la imagen rootfs.ext4 se generó adecuadamente se puede utilizar el 
@@ -139,7 +138,7 @@ siguiente comando de KVM/Qemu que hace que la imagen se vea en el sistema guest 
 un disco:
 
 ```console
-kvm -m 512 -kernel bzImage rootfs.ext4
+sudo kvm -m 512 -kernel bzImage rootfs.ext4
 ```
 Al ejecutar estos comandos se abre una consola Qemu indicandonos que las imagenes se generaron
 sin errores
@@ -148,7 +147,7 @@ sin errores
 initramfs u rootfs.ext4 bootee imprimiendo el mensaje "Hola...":
 
 ```console
-kvm -m 512 -kernel bzImage -initrd rootfs.cpio.xz\
+sudo kvm -m 512 -kernel bzImage -initrd rootfs.cpio.xz\
 -append root=/dev/sda rootfs.ext4
 ```
 
@@ -179,7 +178,7 @@ sudo mount -o loop=rootfs.ext4 mnt/
 mnt/etc/init.d >> ahi estan los scripts de inicio
 ```
 
-**El mount de /dev que estaba acá no es necesario**
+# El mount de /dev que estaba acá no es necesario
 /bin/mount -t proc proc /proc
 
 * Pasar el control del initramfs al filesystem almacenado en disco (rootfs.ext4) se puede resumir
@@ -188,7 +187,7 @@ en una breve serie de pasos:
   * Montar el filesystem en una carpeta, por ejemplo /mnt
   * Hacer que ese sea el nuevo root y pasar el control al init almacenado en el filesystem con switch_root.
 
-```bash
+```console
 #!/bin/sh
 /bin/mount -t proc proc /proc
 /bin/mount -o remount,rw /
@@ -220,9 +219,9 @@ done
 
 # Montar el rootfs...
 
-#mount --move $M /mnt/rootfs 
+mount --move $M /mnt/rootfs 
 
-#$ #(switch_root /mnt/rootfs)
+$(switch_root /mnt/rootfs)
 ```
 
 volver a comprimir

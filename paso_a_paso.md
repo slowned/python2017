@@ -152,38 +152,89 @@ kvm -m 512 -kernel bzImage -initrd rootfs.cpio.xz\
 -append root=/dev/sda rootfs.ext4
 ```
 
-
-
-No hice el script salte al seguiente paso...
-
+Para hacer este ultimo paso hice lo siguiente
 
 * **Extraer el archivo cpio.xz:**
   El archivo “cpio.xz” es un archivo empaquetado y comprimido de forma análoga a “tar.xz”.
 Por lo cuál puede ser manipulado con las herramientas __xz__
 
+**extraer como usuario root**
+
 ```console
 unxz rootfs.cpio.xz
-> root.cpio
-```
-extraer como usuario root
 mkdir miinit && cd miinit
-cpio -i < ../rootfs.cpio
+sudo cpio -i < ../rootfs.cpio
+> root.cpio
 rm sbin/init
-chmod +x init (script)
+```
 
+***darles permisos de ejecucion***
 
+```console
+chmod +x init (script de saludo)
+```
 
-mount -o loop rootfs.ext4 mnt/
+```console
+sudo mount -o loop=rootfs.ext4 mnt/
 mnt/etc/init.d >> ahi estan los scripts de inicio
+```
 
-volver a comprimir
+# El mount de /dev que estaba acá no es necesario
+/bin/mount -t proc proc /proc
+# El mount de /dev que estaba acá no es necesario
+/bin/mount -t proc proc /proc
 
-find | cpio -H newc -o | xz --check=crc32 > ../miinit.cpio.xz
 * Pasar el control del initramfs al filesystem almacenado en disco (rootfs.ext4) se puede resumir
 en una breve serie de pasos:
   * Extraer el path al filesystem desde /proc/cmdline (opción root).
   * Montar el filesystem en una carpeta, por ejemplo /mnt
   * Hacer que ese sea el nuevo root y pasar el control al init almacenado en el filesystem con switch_root.
+
+```console
+#!/bin/sh
+/bin/mount -t proc proc /proc
+/bin/mount -o remount,rw /
+/bin/mkdir -p /dev/pts /dev/shm
+/bin/mount -a
+/sbin/swapon -a
+/bin/ln -sf /proc/self/fd /dev/fd
+/bin/ln -sf /proc/self/fd/0 /dev/stdin
+/bin/ln -sf /proc/self/fd/1 /dev/stdout
+/bin/ln -sf /proc/self/fd/2 /dev/stderr
+/bin/hostname -F /etc/hostname
+
+# Código de ustedes...
+IFS="=";
+aux=""
+directory=""
+for param in $@; do
+  IFS=" ";
+  for prm in $param; do
+    if [ "$prm" == "root" ]; then
+      aux=$prm;
+    elif [ "$aux" == "root" ]; then
+      directory=$prm;
+      unset aux;
+      aux=" fasdfsdf ";
+    fi
+  done
+done
+
+# Montar el rootfs...
+
+#mount --move $M /mnt/rootfs 
+
+#$ #(switch_root /mnt/rootfs)
+```
+
+volver a comprimir
+```console
+sudo su
+find .| cpio -H newc -o | sudo xz --check=crc32 > ../miinit.cpio.xz
+```
+
+
+
 
 ```console
 sudo cpio rootfs.cpio /proc/cmdline

@@ -179,9 +179,7 @@ sudo mount -o loop=rootfs.ext4 mnt/
 mnt/etc/init.d >> ahi estan los scripts de inicio
 ```
 
-# El mount de /dev que estaba acá no es necesario
-/bin/mount -t proc proc /proc
-# El mount de /dev que estaba acá no es necesario
+**El mount de /dev que estaba acá no es necesario**
 /bin/mount -t proc proc /proc
 
 * Pasar el control del initramfs al filesystem almacenado en disco (rootfs.ext4) se puede resumir
@@ -190,7 +188,7 @@ en una breve serie de pasos:
   * Montar el filesystem en una carpeta, por ejemplo /mnt
   * Hacer que ese sea el nuevo root y pasar el control al init almacenado en el filesystem con switch_root.
 
-```console
+```bash
 #!/bin/sh
 /bin/mount -t proc proc /proc
 /bin/mount -o remount,rw /
